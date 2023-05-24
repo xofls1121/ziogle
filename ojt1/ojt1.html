@@ -1,0 +1,37 @@
+<style>
+    #objIframe{
+        width:100%;
+        height: 400px;
+        border: none;
+    }
+</style>
+
+<h1>존재하는 Google Sheet 문서를 Iframe으로 불러오기</h1>
+<ul>
+    <li>파일->공유->웹에게시</li>
+</ul>
+<iframe id="objIframe" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSk92NUZKRcmXlze23plrptK9zZBPdlq6nPBYkkihPgOf9fdBYeYmgLy6eX0eJEgbP9xBQJ8m-hsMEW/pubhtml?widget=true&amp;headers=false"></iframe>
+
+<h1>도전과제</h1>
+<ul>
+    <li>API를 이용해 Iframe으로 불러오기</li>
+    <li>빈 엑셀 sheet를 만든다</li>
+    <li>iframe으로 불러온다</li>
+    <li>수정할 수 있는 권한이 열려 수정작업을 한다.</li>
+    <li>내 로컬저장소에 저장한다.</li>
+</ul>
+
+<script>
+//this function publish to the web the document given by ID (google sheets or docs)
+function publishToWeb(){ 
+    var fileId = 'WqcTq4c3iumeEUSgPMCcM8yKUqycQsrn_w3XeE'; 
+    var revisions = Drive.Revisions.list(fileId); 
+    var items = revisions.items; 
+    var revisionId =items[items.length-1].id; 
+    var resource = Drive.Revisions.get(fileId, revisionId); 
+    resource.published = true;
+    resource.publishAuto = true;
+    resource.publishedOutsideDomain = true;
+    Drive.Revisions.update(resource, fileId, revisionId); 
+}    
+</script>
